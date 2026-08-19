@@ -1,13 +1,26 @@
 import axios from "axios";
 
-const getServerURL = () =>
-  process.env.API_URL || 'http://localhost:8000';
+const isServer = typeof window === 'undefined';
+const isDevelopment = import.meta.env.DEV;
 
 const getBaseURL = () => {
-  if (typeof window === 'undefined') {
-    return getServerURL()
+  // Server-side
+  if (isServer) {
+    // If API_URL is set, use it; otherwise, only use localhost in development
+    if (process.env.API_URL) {
+      return process.env.API_URL;
+    }
+    // In production server, don't make API calls (or use relative path)
+    return isDevelopment ? 'http://localhost:8000' : '';
   }
-  return import.meta.env.VITE_API_URL || 'http://localhost:8000'
+  
+  // Client-side
+  if (isDevelopment) {
+    return 'http://localhost:8000'; // json-server
+  }
+  
+  // Production client: use relative path (your Nitro API)
+  return '/api';
 }
 
 const api = axios.create({
@@ -16,8 +29,8 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' }
 })
 
-// On server remove the /api prefix because the proxy isn't involved on SSR
-if (typeof window === 'undefined') {
+// Only use interceptor on server
+if (isServer) {
   api.interceptors.request.use(config => {
     if (config.url && config.url.startsWith('/api')) {
       config.url = config.url.replace(/^\/api/, '') || '/'
