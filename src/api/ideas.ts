@@ -13,22 +13,40 @@ export const fetchIdeas = async ():Promise<Idea[]>=>{
 }
 
 
-export const createIdea = async (newIdea:NewIdea):Promise<Idea[]>=>{
-  const res = await api.post('/api/ideas', {
-    ...newIdea,
-    createdAt: new Date().toISOString()
-  })
+export const createIdea = async (newIdea: NewIdea): Promise<Idea[]> => {
+  const payload = {
+    data: {
+      ...newIdea,
+        date: new Date().toISOString(), 
+        slug: newIdea.Title             
+          .toLowerCase()
+          .replace(/[^a-z0-9]/g, '-')
+          .replace(/-+/g, '-')
+          .replace(/^-|-$/g, '')
+    }
+  };
+  
+  const res = await api.post('/api/ideas', payload);
+  return res.data.data;
+};
+
+
+export const editIdea = async (editedIdea:EditIdea):Promise<Idea[]>=>{
+    const payload = {
+    data: {
+          Title: editedIdea.Title,  
+          summary: editedIdea.summary,
+          description: editedIdea.description
+        }
+    }
+
+  const res = await api.put(`/api/ideas/${editedIdea.documentId}`, payload)
   return res.data.data
 }
 
-export const editIdea = async (editedIdea:EditIdea):Promise<Idea[]>=>{
-  const res = await api.patch(`/api/ideas/${editedIdea.id}`, {
-    ...editedIdea,
-    createdAt: new Date().toISOString()
-  })
-  return res.data.data
-}
+
 
 export const deleteIdea = async (ideaId: string):Promise<void>=>{
    await api.delete(`/api/ideas/${ideaId}`)
 }
+

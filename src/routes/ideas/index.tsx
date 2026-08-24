@@ -6,6 +6,9 @@ import IdeaCard from '#/components/IdeaCard'
 const ideaQueryOptions = ()=> queryOptions({
   queryKey: ['ideas'],
   queryFn: fetchIdeas,
+  staleTime: 0,
+  refetchOnMount: true,
+  refetchOnWindowFocus: true,
 })
 
 export const Route = createFileRoute('/ideas/')({
@@ -28,7 +31,7 @@ function IdeasPage() {
       <h1 className="text-2xl font-bold mb-4">Ideas</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {ideas.map((idea)=>(
-            <IdeaCard title={idea.title} summary={idea.summary} id={idea.documentId} latestIdeas={true} key={idea.documentId}/>
+            <IdeaCard title={idea.Title} summary={idea.summary} id={idea.documentId} latestIdeas={true} key={idea.documentId}/>
         ))}
       </div>
     </div>

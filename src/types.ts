@@ -1,7 +1,7 @@
 
 export interface Idea {
   id: string,
-  title: string,
+  Title: string,
   summary: string,
   description: string,
   tags?: string[],
@@ -10,17 +10,24 @@ export interface Idea {
 } 
 
 export interface NewIdea {
-  title: string,
+  Title: string,
   summary: string,
   description: string,
-  tags?: string[]
-} 
+  tags?: string[],
+  date: string,    
+  slug: string
+}
+
+export interface NewIdeaProps {
+ data: NewIdea
+}
 
 export interface EditIdea {
-  title: string,
+  Title: string,
   summary: string,
   description: string,
-  id: string
+  id: string,
+  documentId?: string;
 } 
 
 export interface IdeaCardProps {

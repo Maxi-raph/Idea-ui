@@ -5,7 +5,10 @@ import { useState } from 'react'
 
 const ideaQueryOptions = (id: string)=> queryOptions({
     queryKey: ['ideas', id],
-    queryFn: ()=> fetchIdea(id)
+    queryFn: ()=> fetchIdea(id),
+    staleTime: 0,
+    refetchOnMount: true,
+    refetchOnWindowFocus: true,
 })
 
 export const Route = createFileRoute('/ideas/edit/$ideaId/')({
@@ -16,7 +19,7 @@ export const Route = createFileRoute('/ideas/edit/$ideaId/')({
 function RouteComponent() {
   const {ideaId} = Route.useParams()
   const {data: idea} = useSuspenseQuery(ideaQueryOptions(ideaId))
-  const [editFormData, setEditFormData] = useState({title:(idea?.title ?? ''), summary:(idea?.summary ?? ''), description:(idea?.description ?? ''), id:(idea?.id ?? '')})
+  const [editFormData, setEditFormData] = useState({Title:(idea?.Title ?? ''), summary:(idea?.summary ?? ''), description:(idea?.description ?? ''), id:(idea?.id ?? ''), documentId: idea?.documentId ?? ''})
   const navigate = useNavigate()
  
   const {mutateAsync, isPending} = useMutation({
@@ -30,6 +33,7 @@ function RouteComponent() {
     if(confirmEdit){
       await mutateAsync(editFormData)
     }
+
   }
   return (
     <div>
@@ -40,8 +44,8 @@ function RouteComponent() {
           <input 
           type="text"
           id='title'
-          value={editFormData.title}
-          onChange={(e)=>setEditFormData((prev)=> ({...prev, title:e.target.value}))}
+          value={editFormData.Title}
+          onChange={(e)=>setEditFormData((prev)=> ({...prev, Title:e.target.value}))}
           className='w-full block py-2 px-4 rounded-md border 
           border-gray-300 focus:outline-none 
           focus:ring focus:ring-blue-500 mt-2'

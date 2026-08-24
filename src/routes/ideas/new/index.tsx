@@ -17,7 +17,7 @@ export const Route = createFileRoute('/ideas/new/')({
 
 function NewIdeaPage() {
   const navigate = useNavigate()
-  const [formData, setFormData] = useState<NewIdea>({title: '', summary: '', description: '', tags:[]})
+  const [formData, setFormData] = useState<NewIdea>({Title: '', summary: '', description: '', tags:[], date:'',slug:''})
   const [tagInput, setTagInput] = useState('');
   const { mutateAsync, isPending } = useMutation({
     mutationFn: createIdea,
@@ -25,8 +25,8 @@ function NewIdeaPage() {
   })
   const handleSubmit = async(e:React.SyntheticEvent<HTMLFormElement>)=>{
     e.preventDefault()
-
-    const requiredFields = ['title', 'summary', 'description'] as const;
+    
+    const requiredFields = ['Title', 'summary', 'description'] as const;
     const emptyFields = requiredFields.filter(
       field => !formData[field] || formData[field].trim() === ''
     );
@@ -42,7 +42,7 @@ function NewIdeaPage() {
       console.error(error)
       alert('Something went wrong')
     } finally{
-      setFormData({title: '', summary: '', description: '', tags:[]})
+      setFormData({Title: '', summary: '', description: '', tags:[], date:'',slug:''})
     }
   }
 
@@ -74,8 +74,8 @@ function NewIdeaPage() {
           <input 
           id='title' 
           type="text"
-          value={formData.title}
-          onChange={(e)=> setFormData((prev) => ({...prev, title: e.target.value}))} 
+          value={formData.Title}
+          onChange={(e)=> setFormData((prev) => ({...prev, Title: e.target.value}))} 
           className='w-full border-gray-300 border rounded-md p-2 
           focus:outline-none focus:ring-2 focus:ring-blue-500'
           placeholder='Enter Idea Title'/>

@@ -5,7 +5,10 @@ import { deleteIdea, fetchIdea } from '#/api/ideas'
 
 const ideaQueryOptions = (ideaId:string) => queryOptions({
   queryKey: ['idea', ideaId],
-  queryFn: ()=> fetchIdea(ideaId)
+  queryFn: ()=> fetchIdea(ideaId),
+  staleTime: 0,
+  refetchOnMount: true,
+  refetchOnWindowFocus: true,
 }) 
 
 
@@ -39,7 +42,7 @@ function IdeaDetailsPage() {
       <div className='p-4'>
         <Link to='/ideas' className='text-blue-500 
         underline block mb-4'>Back to ideas</Link>
-        <h2 className="text-2xl font-bold">{idea.title}</h2>
+        <h2 className="text-2xl font-bold">{idea.Title}</h2>
         <p className="mt-2">{idea.description}</p>
         <div className="flex justify-between gap-6 items-center">
         <button
