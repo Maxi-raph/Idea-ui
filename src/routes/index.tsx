@@ -41,7 +41,7 @@ function Home() {
         <h2 className="text-2xl font-semibold mb-4 text-gray-800">Latest Ideas</h2>
         <div className="space-y-6">
           {ideas.slice(0,3).map((idea)=>(
-            <IdeaCard title={idea.title} summary={idea.summary} id={idea.id} latestIdeas={false} key={idea.id}/>
+            <IdeaCard title={idea.title} summary={idea.summary} id={idea.documentId} latestIdeas={false} key={idea.documentId}/>
           ))}
         </div>
 

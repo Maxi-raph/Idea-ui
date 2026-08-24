@@ -43,12 +43,12 @@ function IdeaDetailsPage() {
         <p className="mt-2">{idea.description}</p>
         <div className="flex justify-between gap-6 items-center">
         <button
-        onClick={()=>handleDelete(idea.id)}
+        onClick={()=>handleDelete(idea.documentId)}
         disabled={isPending}
         className="flex-1 bg-red-600 hover:bg-red-700 transition px-4 py-2 
         rounded-md cursor-pointer mt-4 text-white font-semibold disabled:opacity-50 disabled:cursor-not-allowed">{isPending ? 'Deleting...' : 'Delete Idea'}</button>
         <button
-        onClick={()=>navigate({to: `/ideas/edit/${idea.id}`})}
+        onClick={()=>navigate({to: `/ideas/edit/${idea.documentId}`})}
         className="flex-1 bg-gray-500 hover:bg-gray-600 transition px-4 py-2 
         rounded-md cursor-pointer mt-4 text-white font-semibold">{'Edit Idea'}</button>
 

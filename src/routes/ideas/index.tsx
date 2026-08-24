@@ -28,7 +28,7 @@ function IdeasPage() {
       <h1 className="text-2xl font-bold mb-4">Ideas</h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         {ideas.map((idea)=>(
-            <IdeaCard title={idea.title} summary={idea.summary} id={idea.id} latestIdeas={true} key={idea.id}/>
+            <IdeaCard title={idea.title} summary={idea.summary} id={idea.documentId} latestIdeas={true} key={idea.documentId}/>
         ))}
       </div>
     </div>
