@@ -5,7 +5,8 @@ export interface Idea {
   summary: string,
   description: string,
   tags?: string[],
-  createdAt: string
+  createdAt: string,
+  documentId: string
 } 
 
 export interface NewIdea {
