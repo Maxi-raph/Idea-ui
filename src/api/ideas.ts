@@ -50,3 +50,11 @@ export const deleteIdea = async (ideaId: string):Promise<void>=>{
    await api.delete(`/api/ideas/${ideaId}`)
 }
 
+export const reorderIdeas = async (orderedIds: string[]): Promise<void> => {
+  await Promise.all(
+    orderedIds.map((documentId, index) =>
+      api.put(`/api/ideas/${documentId}?status=published`, { data: { position: index } })
+    )
+  )
+}
+

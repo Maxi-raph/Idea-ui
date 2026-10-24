@@ -5,6 +5,7 @@ export interface Idea {
   summary: string,
   description: string,
   tags?: string[],
+  position?: number,
   createdAt: string,
   documentId: string
 } 
@@ -34,5 +35,6 @@ export interface IdeaCardProps {
  title: string,
  summary: string,
  id: string,
- latestIdeas: boolean
+ latestIdeas: boolean,
+ draggable?: boolean
 }
